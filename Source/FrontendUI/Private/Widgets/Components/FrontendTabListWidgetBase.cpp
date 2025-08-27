@@ -6,7 +6,7 @@
 #include "Widgets/Components/FrontendCommonButtonBase.h"
 
 #if WITH_EDITOR
-void UFrontendTabListWidgetBase::ValidateCompiledDefault(IWidgetCompilerLog &CompileLog) const
+void UFrontendTabListWidgetBase::ValidateCompiledDefaults(IWidgetCompilerLog &CompileLog) const
 {
     Super::ValidateCompiledDefaults(CompileLog);
 

@@ -19,7 +19,7 @@ class FRONTENDUI_API UFrontendTabListWidgetBase : public UCommonTabListWidgetBas
 private:
 	//~ Begin UWidget Interface
 #if WITH_EDITOR
-	virtual void ValidateCompiledDefault(class IWidgetCompilerLog& CompileLog) const override;
+	virtual void ValidateCompiledDefaults(class IWidgetCompilerLog& CompileLog) const override;
 #endif
 	//~End UWidget Interface
 
