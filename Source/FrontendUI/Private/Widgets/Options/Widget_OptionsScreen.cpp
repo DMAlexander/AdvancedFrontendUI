@@ -9,6 +9,7 @@
 #include "Widgets/Options/DataObjects/ListDataObject_Collection.h"
 #include "Widgets/Components/FrontendCommonListView.h"
 #include "FrontendSettings/FrontendGameUserSettings.h"
+#include "Widgets/Options/ListEntries/Widget_ListEntry_Base.h"
 
 #include "FrontendDebugHelper.h"
 
@@ -119,7 +120,11 @@ void UWidget_OptionsScreen::OnListViewItemHovered(UObject *InHoveredItem, bool b
     TEXT(" was ") +
     (bWasHovered ? TEXT("hovered") : TEXT("unhovered"));
 
+    UWidget_ListEntry_Base* HoveredEntryWidget = CommonListView_OptionsList->GetEntryWidgetFromItem<UWidget_ListEntry_Base>(InHoveredItem);
     Debug::Print(DebugString);
+    check(HoveredEntryWidget);
+
+    HoveredEntryWidget->NativeOnListEntryWidgetHovered(bWasHovered);
 }
 
 void UWidget_OptionsScreen::OnListViewItemSelected(UObject *InSelectedItem)
