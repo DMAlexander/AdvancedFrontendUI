@@ -9,7 +9,6 @@
 #include "Widgets/Options/DataObjects/ListDataObject_Collection.h"
 
 #include "FrontendDebugHelper.h"
-#include "Widget_OptionsScreen.h"
 
 void UWidget_OptionsScreen::NativeOnInitialized()
 {
@@ -32,10 +31,9 @@ void UWidget_OptionsScreen::NativeOnInitialized()
             true,
             FSimpleDelegate::CreateUObject(this, &ThisClass::OnBackBoundActionTriggered)
         )
-
-        TabListWidget_OptionsTabs->OnTabSelected.AddUniqueDynamic(this,&ThisClass::OnOptionsTabSelected);
     );
 
+    TabListWidget_OptionsTabs->OnTabSelected.AddUniqueDynamic(this,&ThisClass::OnOptionsTabSelected);
 }
 
 void UWidget_OptionsScreen::NativeOnActivated()
