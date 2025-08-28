@@ -12,6 +12,6 @@
 UCLASS()
 class FRONTENDUI_API UListDataObject_Value : public UListDataObject_Base
 {
-	GENERATED_BODY()
+	GENERATED_BODY(Abstract)
 	
 };
