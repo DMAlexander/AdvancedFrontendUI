@@ -8,6 +8,8 @@
 
 class UFrontendCommonButtonBase;
 class UFrontendCommonRotator;
+class UListDataObject_String;
+
 /**
  * 
  */
@@ -15,6 +17,11 @@ UCLASS(Abstract, BlueprintType, meta = (DisableNaiveTick))
 class FRONTENDUI_API UWidget_ListEntry_String : public UWidget_ListEntry_Base
 {
 	GENERATED_BODY()
+
+protected:
+	//~ Begin UWidget_ListEntry_Base Interface
+	virtual void OnOwningListDataObjectSet(UListDataObject_Base* InOwningListDataObject) override;
+	//~ End UWidget_ListEntry_Base Interface
 
 private:
 	//***** Bound Widgets *****//
@@ -27,4 +34,7 @@ private:
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget,AllowPrivateAccess = "true"))
 	UFrontendCommonButtonBase* CommonButton_Increase;
 	//***** Bound Widgets *****//
+
+	UPROPERTY(Transient)
+	UListDataObject_String* CachedOwningStringDataObject;
 };
