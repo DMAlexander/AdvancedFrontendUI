@@ -12,7 +12,7 @@ class UOptionsDataRegistry;
 class UFrontendTabListWidgetBase;
 class UFrontendCommonListView;
 class UWidget_OptionsDetailsView;
-//class UListDataObject_Base;
+class UListDataObject_Base;
 /**
  * 
  */
@@ -44,9 +44,9 @@ private:
 	void OnListViewItemHovered(UObject* InHoveredItem,bool bWasHovered);
 	void OnListViewItemSelected(UObject* InSelectedItem);
 
-//	FString TryGetEntryWidgetClassName(UObject* InOwningListItem) const;
+	FString TryGetEntryWidgetClassName(UObject* InOwningListItem) const;
 
-//	void OnListViewListDataModified(UListDataObject_Base* ModifiedData,EOptionsListDataModifyReason ModifyReason);
+	void OnListViewListDataModified(UListDataObject_Base* ModifiedData,EOptionsListDataModifyReason ModifyReason);
 
 	//***** Bound Widgets ***** //
 	UPROPERTY(meta = (BindWidget))
@@ -68,8 +68,8 @@ private:
 
 	FUIActionBindingHandle ResetActionHandle;
 
-//	UPROPERTY(Transient)
-//	TArray<UListDataObject_Base*> ResettableDataArray;
+	UPROPERTY(Transient)
+	TArray<UListDataObject_Base*> ResettableDataArray;
 
 	bool bIsResettingData = false;
 };

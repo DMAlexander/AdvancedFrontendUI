@@ -108,6 +108,38 @@ void UWidget_OptionsScreen::OnOptionsTabSelected(FName TabId)
         CommonListView_OptionsList->NavigateToIndex(0);
         CommonListView_OptionsList->SetSelectedIndex(0);
     }
+
+    ResettableDataArray.Empty();
+
+    for (UListDataObject_Base* FoundListSourceItem : FoundListSourceItems)
+    {
+        if(!FoundListSourceItem)
+        {
+            continue;
+        }
+
+        if (!FoundListSourceItem->OnListDataModified.IsBoundToObject(this))
+        {
+            FoundListSourceItem->OnListDataModified.AddUObject(this,&ThisClass::OnListViewListDataModified);
+        }
+
+        if (FoundListSourceItem->CanResetBackToDefaultValue())
+        {
+            ResettableDataArray.AddUnique(FoundListSourceItem);
+        }
+    }
+
+    if (ResettableDataArray.IsEmpty())
+    {
+        RemoveActionBinding(ResetActionHandle);
+    }
+    else
+    {
+        if (!GetActionBindings().Contains(ResetActionHandle))
+        {
+            AddActionBinding(ResetActionHandle);
+        }
+    }
 }
 
 void UWidget_OptionsScreen::OnListViewItemHovered(UObject *InHoveredItem, bool bWasHovered)
@@ -141,4 +173,34 @@ void UWidget_OptionsScreen::OnListViewItemSelected(UObject *InSelectedItem)
     TEXT(" was selected");
 
     Debug::Print(DebugString);
+}
+
+void UWidget_OptionsScreen::OnListViewListDataModified(UListDataObject_Base *ModifiedData, EOptionsListDataModifyReason ModifyReason)
+{
+    if (!ModifiedData)
+    {
+        return;
+    }
+
+    if (ModifiedData->CanResetBackToDefaultValue())
+    {
+        ResettableDataArray.AddUnique(ModifiedData);
+
+        if (!GetActionBindings().Contains(ResetActionHandle))
+        {
+            AddActionBinding(ResetActionHandle);
+        }
+    }
+    else
+    {
+        if (ResettableDataArray.Contains(ModifiedData))
+        {
+            ResettableDataArray.Remove(ModifiedData);
+        }
+    }
+
+    if (ResettableDataArray.IsEmpty())
+    {
+        RemoveActionBinding(ResetActionHandle);
+    }
 }
