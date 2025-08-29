@@ -6,6 +6,32 @@
 
 #include "FrontendDebugHelper.h"
 
+void UListDataObject_String::OnDataObjectInitialized()
+{
+    if (!AvailableOptionsStringArray.IsEmpty())
+    {
+        CurrentStringValue = AvailableOptionsStringArray[0];
+    }
+
+    if (HasDefaultValue())
+    {
+        CurrentStringValue = GetDefaultValueAsString();
+    }
+
+    if (DataDynamicGetter)
+    {
+        if (!DataDynamicGetter->GetValueAsString().IsEmpty())
+        {
+            CurrentStringValue = DataDynamicGetter->GetValueAsString();
+        }
+    }
+
+    if (!TrySetDisplayTextFromStringValue(CurrentStringValue))
+    {
+        CurrentDisplayText = FText::FromString(TEXT("Invalid Option"));
+    }
+}
+
 void UListDataObject_String::AddDynamicOption(const FString& InStringValue, const FText& InDisplayText)
 {
     AvailableOptionsStringArray.Add(InStringValue);
@@ -75,28 +101,6 @@ void UListDataObject_String::BackToPreviousOption()
         Debug::Print(TEXT("DataDynamicSetter is used. The latest value from Getter: ") + DataDynamicGetter->GetValueAsString());
 
         NotifyListDataModified(this);
-    }
-}
-
-void UListDataObject_String::OnDataObjectInitialized()
-{
-    if (!AvailableOptionsStringArray.IsEmpty())
-    {
-        CurrentStringValue = AvailableOptionsStringArray[0];
-    }
-
-    if (DataDynamicGetter)
-    {
-        if (!DataDynamicGetter->GetValueAsString().IsEmpty())
-        {
-            CurrentStringValue = DataDynamicGetter->GetValueAsString();
-        }
-    }
-
-
-    if (!TrySetDisplayTextFromStringValue(CurrentStringValue))
-    {
-        CurrentDisplayText = FText::FromString(TEXT("Invalid Option"));
     }
 }
 
