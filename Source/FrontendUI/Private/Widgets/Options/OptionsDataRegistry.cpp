@@ -13,6 +13,7 @@
 #include "Internationalization/StringTableRegistry.h"
 #include "EnhancedInputSubsystems.h"
 #include "UserSettings/EnhancedInputUserSettings.h"
+#include "Widgets/Options/DataObjects/ListDataObject_KeyRemap.h"
 
 #include "FrontendDebugHelper.h"
 
@@ -671,6 +672,13 @@ void UOptionsDataRegistry::InitControlCollectionTab(ULocalPlayer* InOwningLocalP
                                 TEXT(" Display Name: ") + KeyMapping.GetDisplayName().ToString() + 
                                 TEXT(" Bound Key: ") + KeyMapping.GetCurrentKey().ToString()
                             );
+
+                            UListDataObject_KeyRemap* KeyRemapDataObject = NewObject<UListDataObject_KeyRemap>();
+                            KeyRemapDataObject->SetDataID(KeyMapping.GetMappingName());
+                            KeyRemapDataObject->SetDataDisplayName(KeyMapping.GetDisplayName());
+                            KeyRemapDataObject->InitKeyRemapData(EIUserSettings,MappableKeyProfile,ECommonInputType::MouseAndKeyboard,KeyMapping);
+
+                            KeyboardMouseCategoryCollection->AddChildListData(KeyRemapDataObject);
                         }
                     }
                 }
