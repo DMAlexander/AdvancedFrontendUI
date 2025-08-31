@@ -22,6 +22,7 @@ class FRONTENDUI_API UListDataObject_Base : public UObject
 public:
 	DECLARE_MULTICAST_DELEGATE_TwoParams(FOnListDataModifiedDelegate,UListDataObject_Base*,EOptionsListDataModifyReason)
 	FOnListDataModifiedDelegate OnListDataModified;
+	FOnListDataModifiedDelegate OnDependencyDataModified;
 
 	LIST_DATA_ACCESSOR(FName,DataID)
 	LIST_DATA_ACCESSOR(FText,DataDisplayName)
@@ -43,8 +44,11 @@ public:
 	virtual bool CanResetBackToDefaultValue() const { return false;}
 	virtual bool TryResetBackToDefaultValue() { return false;}
 
-	//Gets called from OptionsDataRegister for adding in edit conditions for the constructed list data objects
+	//Gets called from OptionsDataRegistry for adding in edit conditions for the constructed list data objects
 	void AddEditCondition(const FOptionsDataEditConditionDescriptor& InEditCondition);
+
+	//Gets called from OptionsDataRegistry to add in dependency data
+	void AddEditDependencyData(UListDataObject_Base* InDependencyData);
 
 	bool IsDataCurrentlyEditable();
 
@@ -59,6 +63,8 @@ protected:
 
 	//The child class should override this to specify how to set the current value to the forced value
 	virtual void OnSetToForcedStringValue(const FString& InForcedValue) {}
+
+	virtual void OnEditDependencyDataModified(UListDataObject_Base* ModifiedDependencyData,EOptionsListDataModifyReason ModifyReason);
 
 private:
 	FName DataID;
