@@ -86,7 +86,7 @@ public:
 	}
 
 	template<typename EnumType>
-	EnumType SetDefaultValueFromEnumOption(EnumType InEnumOption) const
+	void SetDefaultValueFromEnumOption(EnumType InEnumOption)
 	{
 		const UEnum* StaticEnumOption = StaticEnum<EnumType>();
 		const FString ConvertedEnumString = StaticEnumOption->GetNameStringByValue(InEnumOption);
