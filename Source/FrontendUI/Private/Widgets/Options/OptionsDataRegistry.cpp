@@ -250,6 +250,17 @@ void UOptionsDataRegistry::InitVideoCollectionTab()
 
         VideoTabCollection->AddChildListData(DisplayCategoryCollection);
 
+        FOptionsDataEditConditionDescriptor PackagedBuildOnlyCondition;
+        PackagedBuildOnlyCondition.SetEditConditionFunc(
+            []()->bool
+            {
+                const bool bIsInEditor = GIsEditor || GIsPlayInEditorWorld;
+
+                return !bIsInEditor;
+            }
+        );
+        PackagedBuildOnlyCondition.SetDisabledRichReason(TEXT("\n\n<Disabled>This setting can only be adjusted in a packaged build.</>"));
+
         //WindowMode
         {
             UListDataObject_StringEnum* WindowMode = NewObject<UListDataObject_StringEnum>();
@@ -264,6 +275,8 @@ void UOptionsDataRegistry::InitVideoCollectionTab()
             WindowMode->SetDataDynamicSetter(MAKE_OPTIONS_DATA_CONTROL(SetFullscreenMode));
             WindowMode->SetShouldApplySettingsImmediately(true);
 
+            WindowMode->AddEditCondition(PackagedBuildOnlyCondition);
+
             DisplayCategoryCollection->AddChildListData(WindowMode);
         }
 
@@ -277,6 +290,8 @@ void UOptionsDataRegistry::InitVideoCollectionTab()
             ScreenResolution->SetDataDynamicGetter(MAKE_OPTIONS_DATA_CONTROL(GetFullscreenMode));
             ScreenResolution->SetDataDynamicSetter(MAKE_OPTIONS_DATA_CONTROL(SetFullscreenMode));
             ScreenResolution->SetShouldApplySettingsImmediately(true);
+
+            ScreenResolution->AddEditCondition(PackagedBuildOnlyCondition);
 
             DisplayCategoryCollection->AddChildListData(ScreenResolution);
         }
