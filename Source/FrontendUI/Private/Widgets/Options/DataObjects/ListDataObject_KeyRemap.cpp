@@ -7,6 +7,14 @@
 
 #include "FrontendDebugHelper.h"
 
+void UListDataObject_KeyRemap::NativeOnInitialized()
+{
+    Super::NativeOnInitialized();
+
+    CommonButton_RemapKey->OnClicked().AddUObject(this,&ThisClass::OnRemapKeyButtonClicked);
+    CommonButton_ResetKeyBinding->OnClicked().AddUObject(this,&ThisClass::OnResetKeyBindingButtonClicked);
+}
+
 void UListDataObject_KeyRemap::InitKeyRemapData(UEnhancedInputUserSettings *InOwningInputUserSettings, UEnhancedPlayerMappableKeyProfile *InKeyProfile, ECommonInputType InDesiredInputKeyType, const FPlayerKeyMapping &InOwningPlayerKeyMapping)
 {
     CachedOwningInputUserSettings = InOwningInputUserSettings;
@@ -43,6 +51,16 @@ FSlateBrush UListDataObject_KeyRemap::GetIconFromCurrentKey() const
     }
 
     return FoundBrush;
+}
+
+void UListDataObject_KeyRemap::OnRemapKeyButtonClicked()
+{
+    Debug::Print(TEXT("Remap Key Button Clicked"));
+}
+
+void UListDataObject_KeyRemap::OnResetKeyBindingButtonClicked()
+{
+    Debug::Print(TEXT("Reset Key Binding Button Clicked"));
 }
 
 FPlayerKeyMapping *UListDataObject_KeyRemap::GetOwningKeyMapping() const
