@@ -7,14 +7,6 @@
 
 #include "FrontendDebugHelper.h"
 
-void UListDataObject_KeyRemap::NativeOnInitialized()
-{
-    Super::NativeOnInitialized();
-
-    CommonButton_RemapKey->OnClicked().AddUObject(this,&ThisClass::OnRemapKeyButtonClicked);
-    CommonButton_ResetKeyBinding->OnClicked().AddUObject(this,&ThisClass::OnResetKeyBindingButtonClicked);
-}
-
 void UListDataObject_KeyRemap::InitKeyRemapData(UEnhancedInputUserSettings *InOwningInputUserSettings, UEnhancedPlayerMappableKeyProfile *InKeyProfile, ECommonInputType InDesiredInputKeyType, const FPlayerKeyMapping &InOwningPlayerKeyMapping)
 {
     CachedOwningInputUserSettings = InOwningInputUserSettings;

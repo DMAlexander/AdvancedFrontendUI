@@ -18,11 +18,6 @@ class FRONTENDUI_API UListDataObject_KeyRemap : public UListDataObject_Base
 {
 	GENERATED_BODY()
 	
-protected:
-	//! Begin UUserWidget Interface
-	virtual void NativeOnInitialized() override;
-	//~ End UUserWidget Interface
-
 public:
 	void InitKeyRemapData(UEnhancedInputUserSettings* InOwningInputUserSettings,UEnhancedPlayerMappableKeyProfile* InKeyProfile,ECommonInputType InDesiredInputKeyType,const FPlayerKeyMapping& InOwningPlayerKeyMapping);
 
