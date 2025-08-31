@@ -28,3 +28,6 @@ void UFrontendGameUserSettings::SetMusicVolume(float InVolume)
 {
     MusicVolume = InVolume;
 }
+void UFrontendGameUserSettings::SetSoundFXVolume(float InVolume)
+{
+}
