@@ -8,6 +8,7 @@
 #include "Widget_KeyRemapScreen.generated.h"
 
 class UCommonRichTextBlock;
+class FKeyRemapScreenInputPreprocessor;
 /**
  * 
  */
@@ -27,4 +28,6 @@ private:
 	UPROPERTY(meta = (BindWidget))
 	UCommonRichTextBlock* CommonRichText_RemapMessage;
 	//***** Bound Widgets *****//
+
+	TSharedPtr<FKeyRemapScreenInputPreprocessor> CachedInputPreprocessor;
 };
