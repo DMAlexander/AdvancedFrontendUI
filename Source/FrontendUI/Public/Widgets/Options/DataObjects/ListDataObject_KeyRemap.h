@@ -23,6 +23,8 @@ public:
 
 	FSlateBrush GetIconFromCurrentKey() const;
 
+	void BindNewInputKey(const FKey& InNewKey);
+
 private:
 	void OnRemapKeyButtonClicked();
 	void OnResetKeyBindingButtonClicked();
