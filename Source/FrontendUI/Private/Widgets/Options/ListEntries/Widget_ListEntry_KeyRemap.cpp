@@ -38,6 +38,8 @@ void UWidget_ListEntry_KeyRemap::OnOwningListDataObjectModified(UListDataObject_
 
 void UWidget_ListEntry_KeyRemap::OnRemapKeyButtonClicked()
 {
+    SelectThisEntryWidget();
+
     Debug::Print(TEXT("Remap Key Button Clicked"));
     UFrontendUISubsystem::Get(this)->PushSoftWidgetToStackAsync(
         FrontendGameplayTags::Frontend_WidgetStack_Modal,
@@ -62,6 +64,11 @@ void UWidget_ListEntry_KeyRemap::OnRemapKeyButtonClicked()
 void UWidget_ListEntry_KeyRemap::OnResetKeyBindingButtonClicked()
 {
     Debug::Print(TEXT("Remap Key Binding Button Clicked"));
+    SelectThisEntryWidget();
+
+    //Check if the current ey is already the default key. Display an OK screen that says this is already the default key to the player
+
+    //Reset the key binding back to default
 }
 
 void UWidget_ListEntry_KeyRemap::OnKeyToRemapPressed(const FKey &PressedKey)

@@ -61,14 +61,32 @@ void UListDataObject_KeyRemap::BindNewInputKey(const FKey &InNewKey)
     NotifyListDataModified(this);
 }
 
-void UListDataObject_KeyRemap::OnRemapKeyButtonClicked()
+bool UListDataObject_KeyRemap::HasDefaultValue() const
 {
-    Debug::Print(TEXT("Remap Key Button Clicked"));
+    return GetOwningKeyMapping()->GetDefaultKey().IsValid();
 }
 
-void UListDataObject_KeyRemap::OnResetKeyBindingButtonClicked()
+bool UListDataObject_KeyRemap::CanResetBackToDefaultValue() const
 {
-    Debug::Print(TEXT("Reset Key Binding Button Clicked"));
+    return HasDefaultValue() && GetOwningKeyMapping()->IsCustomized();
+}
+
+bool UListDataObject_KeyRemap::TryResetBackToDefaultValue()
+{
+    if (CanResetBackToDefaultValue())
+    {
+        check(CachedOwningInputUserSettings);
+
+        GetOwningKeyMapping()->ResetToDefault();
+
+        CachedOwningInputUserSettings->SaveSettings();
+
+        NotifyListDataModified(this,EOptionsListDataModifyReason::ResetToDefault);
+
+        return true;
+    }
+
+    return false;
 }
 
 FPlayerKeyMapping *UListDataObject_KeyRemap::GetOwningKeyMapping() const
