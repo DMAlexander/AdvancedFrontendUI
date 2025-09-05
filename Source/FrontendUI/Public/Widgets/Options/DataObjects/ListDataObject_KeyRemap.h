@@ -25,7 +25,6 @@ public:
 
 	void BindNewInputKey(const FKey& InNewKey);
 
-private:
 	//~ Begin UListDataObject_Base Interface
 	virtual bool HasDefaultValue() const override;
 	virtual bool CanResetBackToDefaultValue() const override;
@@ -34,6 +33,7 @@ private:
 	// void OnRemapKeyButtonClicked();
 	// void OnResetKeyBindingButtonClicked();
 
+private:
 	FPlayerKeyMapping* GetOwningKeyMapping() const;
 
 	UPROPERTY(Transient)
