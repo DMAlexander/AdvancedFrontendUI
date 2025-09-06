@@ -116,7 +116,8 @@ void UFrontendLoadingScreenSubsystem::TryUpdateLoadingScreen()
 
         HoldLoadingScreenStartUpTime = 1.f;
 
-        //Modify the loading is completed
+        //Notify the loading is completed
+        NotifyLoadingScreenVisibilityChanged(false);
 
         //Disable the ticking
         SetTickableTickType(ETickableTickType::Never);
@@ -246,7 +247,7 @@ void UFrontendLoadingScreenSubsystem::TryRemoveLoadingScreen()
 
     CachedCreatedLoadingScreenWidget.Reset();
 
-    NotifyLoadingScreenVisibilityChanged(false);
+//    NotifyLoadingScreenVisibilityChanged(false);
 }
 
 void UFrontendLoadingScreenSubsystem::NotifyLoadingScreenVisibilityChanged(bool bIsVisible)
